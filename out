@@ -36,6 +36,8 @@ silent="$(jq -r '.params.silent // "false"' < "${payload}")"
 always_notify="$(jq -r '.params.always_notify // "false"' < "${payload}")"
 redact_hook="$(jq -r '.params.redact_hook_url // "true"' < "${payload}")"
 
+param_curl_option="$(jq -r '.params.curl_option // ""' < "${payload}")"
+CURL_OPTION="${CURL_OPTION} ${param_curl_option}"
 
 cert_count="$(echo $raw_ca_certs | jq -r '. | length')"
 if [[ ${cert_count} -gt 0 ]]
